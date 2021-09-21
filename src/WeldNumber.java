@@ -26,6 +26,15 @@ public class WeldNumber {
         setMapKey(getProgramName() + getWeldNum());
     }
 
+    public WeldNumber (String weldNum, int lineNum, String program, int amountOfTimesRetaught, String mapKey, ArrayList <String> list) {
+        setWeldNum(weldNum);
+        setLineNumber(lineNum);
+        setAmountOfTimesRetaught(amountOfTimesRetaught);
+        this.datesTimesRetaught = list;
+        setProgramName(program);
+        setMapKey(mapKey);
+    }
+
     public String getWeldNum() {
 		return weldNum;
 	}
@@ -52,6 +61,10 @@ public class WeldNumber {
 
     public void incrementRetaught() {
         this.amountOfTimesRetaught = this.amountOfTimesRetaught++;
+    }
+
+    public void setDatesTimes (ArrayList <String> datesTimes){
+        this.datesTimesRetaught = datesTimes;
     }
     
     public ArrayList <String> getDatesTimes () {
