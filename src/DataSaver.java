@@ -20,6 +20,20 @@ public class DataSaver {
         }
     }
 
+    public static void fileMaker (String robotNum, String cellName, String weldNum){
+        try {
+             weldsFile = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" +robotNum +weldNum);
+            if (weldsFile.createNewFile() == false){
+                //System.out.println("File already exists.");
+                //Add Handling for File Already Exists
+            }
+        }
+        catch(IOException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
     public static void writeToFile(HashMap <String, WeldNumber> map){
         try {
             FileWriter writer = new FileWriter (weldsFile);
@@ -100,6 +114,14 @@ public class DataSaver {
             }
        }
        return weldNumbersMap;
+    }
+
+    public void serializerSave (WeldNumber objectToSave) throws IOException {
+        FileOutputStream fos = new FileOutputStream(weldsFile);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(objectToSave);
+        fos.close();
+        oos.close();
     }
 }
 

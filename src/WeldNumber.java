@@ -1,5 +1,6 @@
+import java.io.Serializable;
 import java.util.*;
-public class WeldNumber {
+public class WeldNumber implements Serializable {
 
     protected String weldNum;
     protected int lineNumber;
