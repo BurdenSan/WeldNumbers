@@ -5,10 +5,11 @@ import java.util.*;
 
 
 public class DataSaver {
-    public static File weldsFile = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\weldNumbers.txt");
+    public static File weldsFile;
     
-    public static void fileMaker (){
+    public static void fileMaker (String robotNum, String cellName){
         try {
+             weldsFile = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" +robotNum);
             if (weldsFile.createNewFile() == false){
                 System.out.println("File already exists.");
             }

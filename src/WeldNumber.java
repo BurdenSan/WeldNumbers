@@ -5,8 +5,12 @@ public class WeldNumber {
     protected int lineNumber;
     protected int amountOfTimesRetaught;
     protected List <String> datesTimesRetaught;
+    protected List <String> shiftRetaught;
+    protected List <String> reasonRetaught;
+    protected List <String> reteachMethod;
     protected String programName;
     protected String mapKey;
+    protected HashMap <String, ReteachHistory> reteachMap;
 
     public WeldNumber () {
         setWeldNum(null);;
@@ -75,6 +79,42 @@ public class WeldNumber {
         datesTimesRetaught.add(dateAndTime);
     }
 
+    public void setShift (ArrayList <String> shift){
+        this.shiftRetaught = shift;
+    }
+    
+    public ArrayList <String> getShift () {
+        return (ArrayList <String>) this.shiftRetaught;
+    }
+
+    public void addShift (String shift) {
+        shiftRetaught.add(shift);
+    }
+
+    public void setReasonForReteach (ArrayList <String> reasonForReteach){
+        this.reasonRetaught = reasonForReteach;
+    }
+    
+    public ArrayList <String> getReason () {
+        return (ArrayList <String>) this.reasonRetaught;
+    }
+
+    public void addReason (String reasonForReteach) {
+        reasonRetaught.add(reasonForReteach);
+    }
+
+    public void setModification (ArrayList <String> modification){
+        this.reteachMethod = modification;
+    }
+    
+    public ArrayList <String> getModification () {
+        return (ArrayList <String>) this.reteachMethod;
+    }
+
+    public void addModification (String modification) {
+        reteachMethod.add(modification);
+    }
+
     public String getProgramName () {
         return programName;
     }
@@ -91,3 +131,5 @@ public class WeldNumber {
         this.mapKey = key;
     }
 }
+
+

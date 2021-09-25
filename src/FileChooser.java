@@ -183,7 +183,7 @@ public class FileChooser extends JPanel
         frame.setVisible(true);
     }
  
-    public static void main(String[] args) {
+    public static void startFileChooser() {
         //Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
         SwingUtilities.invokeLater(new Runnable() {
