@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class LineReader {
 
-    public static HashMap <String, WeldNumber> readLineBR(String fileName) throws FileNotFoundException {
+    public static HashMap <String, WeldNumber> readLineBR(String fileName, String robotNumber) throws FileNotFoundException {
          
        HashMap <String, WeldNumber> weldNumbers = new HashMap <String, WeldNumber>();
        
@@ -23,6 +23,7 @@ public class LineReader {
                         //Here we will create the weld number object that will get added to our map
                         //It currently holds its name, its map key, and the name of the file it came from
                         WeldNumber tempNumber = new WeldNumber(splitString [i] + " " + splitString [i+1], currentLine + 1, fileName);
+                        tempNumber.setRobotNumber(robotNumber);
                         weldNumbers.put(tempNumber.getMapKey(), tempNumber);
                     }
                 }

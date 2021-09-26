@@ -2,6 +2,8 @@
 import java.io.*;
 //import java.time.temporal.WeekFields;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class DataSaver {
@@ -20,9 +22,9 @@ public class DataSaver {
         }
     }
 
-    public static void fileMaker (String robotNum, String cellName, String weldNum){
+    public static void fileMaker (String robotNum, String cellName, String weldNum, String frameStyle){
         try {
-             weldsFile = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" +robotNum +weldNum);
+             weldsFile = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" +robotNum + frameStyle +weldNum);
             if (weldsFile.createNewFile() == false){
                 //System.out.println("File already exists.");
                 //Add Handling for File Already Exists
@@ -116,12 +118,53 @@ public class DataSaver {
        return weldNumbersMap;
     }
 
-    public void serializerSave (WeldNumber objectToSave) throws IOException {
+    public static void serializerSave (WeldNumber objectToSave) throws IOException {
         FileOutputStream fos = new FileOutputStream(weldsFile);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(objectToSave);
         fos.close();
         oos.close();
+    }
+    
+    public static WeldNumber retrieveSave (String weldFile) throws FileNotFoundException{
+        WeldNumber retrievedWeld = new WeldNumber();
+        try {
+            FileInputStream fis = new FileInputStream(weldFile);
+            ObjectInputStream ois = new ObjectInputStream (fis);
+            retrievedWeld = (WeldNumber) ois.readObject();
+        } catch (IOException ex) {
+            Logger.getLogger(DataSaver.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DataSaver.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return retrievedWeld;
+        
+    }
+
+    public static WeldNumber supplyRetrieveSave(String cellName, String weldNumber, String frameStyle) {
+        boolean firstPassed = true;
+        WeldNumber returnMe = new WeldNumber();
+        File test1 = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" + "1" + frameStyle + weldNumber);
+        File test2 = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" + "2" + frameStyle + weldNumber);
+        if (test1.exists()){
+            try {
+                returnMe = retrieveSave(test1.getAbsolutePath());
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        else if (test2.exists()){
+            try {
+                returnMe = retrieveSave(test2.getAbsolutePath());
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return returnMe;
+
     }
 }
 

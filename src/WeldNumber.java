@@ -12,6 +12,7 @@ public class WeldNumber implements Serializable {
     protected String programName;
     protected String mapKey;
     protected HashMap <String, ReteachHistory> reteachMap;
+    protected String robotNumber;
 
     public WeldNumber () {
         setWeldNum(null);;
@@ -38,6 +39,14 @@ public class WeldNumber implements Serializable {
         this.datesTimesRetaught = list;
         setProgramName(program);
         setMapKey(mapKey);
+    }
+
+    public String getRobotNumber() {
+        return robotNumber;
+    }
+
+    public void setRobotNumber(String robotNumber) {
+        this.robotNumber = robotNumber;
     }
 
     public String getWeldNum() {
