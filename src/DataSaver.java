@@ -1,4 +1,6 @@
 
+
+
 import java.io.*;
 //import java.time.temporal.WeekFields;
 import java.util.*;
@@ -7,11 +9,12 @@ import java.util.logging.Logger;
 
 
 public class DataSaver {
+    static String mydir = "C:\\Users\\aburd\\Desktop\\Welds";
     public static File weldsFile;
     
     public static void fileMaker (String robotNum, String cellName){
         try {
-             weldsFile = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" +robotNum);
+             weldsFile =new File (mydir, cellName + "RB" +robotNum);
             if (weldsFile.createNewFile() == false){
                 System.out.println("File already exists.");
             }
@@ -24,7 +27,7 @@ public class DataSaver {
 
     public static void fileMaker (String robotNum, String cellName, String weldNum, String frameStyle){
         try {
-             weldsFile = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" +robotNum + frameStyle +weldNum);
+             weldsFile = new File (mydir, cellName + "RB" +robotNum + frameStyle +weldNum + ".obj");
             if (weldsFile.createNewFile() == false){
                 //System.out.println("File already exists.");
                 //Add Handling for File Already Exists
@@ -126,12 +129,15 @@ public class DataSaver {
         oos.close();
     }
     
+    
     public static WeldNumber retrieveSave (String weldFile) throws FileNotFoundException{
         WeldNumber retrievedWeld = new WeldNumber();
         try {
             FileInputStream fis = new FileInputStream(weldFile);
             ObjectInputStream ois = new ObjectInputStream (fis);
             retrievedWeld = (WeldNumber) ois.readObject();
+            fis.close();
+            ois.close();
         } catch (IOException ex) {
             Logger.getLogger(DataSaver.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -143,13 +149,15 @@ public class DataSaver {
     }
 
     public static WeldNumber supplyRetrieveSave(String cellName, String weldNumber, String frameStyle) {
-        boolean firstPassed = true;
         WeldNumber returnMe = new WeldNumber();
-        File test1 = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" + "1" + frameStyle + weldNumber);
-        File test2 = new File ("C:\\Users\\aburd\\.vscode\\Robot Weld Search\\" + cellName + "RB" + "2" + frameStyle + weldNumber);
+        
+        File test1 = new File (mydir, cellName + "RB" + "1" + frameStyle + weldNumber + ".obj");
+        //why does this only exist if program has been closed and reopened???
+        File test2 = new File (mydir, cellName + "RB" + "2" + frameStyle + weldNumber + ".obj");
         if (test1.exists()){
             try {
-                returnMe = retrieveSave(test1.getAbsolutePath());
+                String debugString = test1.getAbsolutePath();
+                return retrieveSave(test1.getAbsolutePath());
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -157,7 +165,7 @@ public class DataSaver {
         }
         else if (test2.exists()){
             try {
-                returnMe = retrieveSave(test2.getAbsolutePath());
+                return retrieveSave(test2.getAbsolutePath());
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -166,5 +174,8 @@ public class DataSaver {
         return returnMe;
 
     }
+    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException{
+    
+}
 }
 
