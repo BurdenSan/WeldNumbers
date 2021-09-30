@@ -9,8 +9,6 @@
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
@@ -63,7 +61,7 @@ public class AppOpen extends javax.swing.JFrame {
     static ListModel <String> mod;
     JTable lastLoadedTable;
     int dateIndex;
-    static String mydir = "C:\\Users\\aburd\\Desktop\\Welds";
+    static String mydir = System.getProperty("user.home") + "\\welds";
     /**
      * Creates new form AppOpen
      */
@@ -309,7 +307,7 @@ public class AppOpen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("\tWeld Tracker");
-        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\aburd\\Documents\\NetBeansProjects\\RobotWeldSearch\\src\\main\\java\\RobotWeldSearch\\welding-mask.png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Austin\\Documents\\VS Code Java Projects\\WeldNumbers\\src\\welding-mask.png"));
         setMinimumSize(new java.awt.Dimension(920, 600));
         setSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -1291,6 +1289,7 @@ public class AppOpen extends javax.swing.JFrame {
                 
             DefaultTableModel model = (DefaultTableModel) weldResultsTable.getModel();
             String [] reteach = new String [4];
+            model.setRowCount(0);   //clears the table
             for (int i=0; i<foundWeld.getDatesTimes().size(); i++) {
                 reteach [0] = foundWeld.datesTimesRetaught.get(i);
                 reteach [1] = foundWeld.shiftRetaught.get(i);
@@ -1768,24 +1767,26 @@ public class AppOpen extends javax.swing.JFrame {
 
     private void deleteReteachButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteReteachButtonActionPerformed
         // TODO add your handling code here:
-        /*
+        
         WeldNumber removeFromBuffer = new WeldNumber ();
         if (newWeldsBuffer.containsValue(foundWeld)){
             removeFromBuffer = newWeldsBuffer.get(userCellName + userFrameStyle + userWeldNumber);
-        }
-        removeFromBuffer.removeDateTime(dateIndex);
-        removeFromBuffer.removeModification(dateIndex);
-        removeFromBuffer.removeReason(dateIndex);
-        removeFromBuffer.removeShift(dateIndex);        
-        removeFromBuffer.removePic1(dateIndex);
-        removeFromBuffer.removePic2(dateIndex);
-        */
+            removeFromBuffer.removeDateTime(dateIndex);
+            removeFromBuffer.removeModification(dateIndex);
+            removeFromBuffer.removeReason(dateIndex);
+            removeFromBuffer.removeShift(dateIndex);        
+            removeFromBuffer.removePic1(dateIndex);
+            removeFromBuffer.removePic2(dateIndex);
+            removeFromBuffer.decrementRetaught();
+        }       
+        
         foundWeld.removeDateTime(dateIndex);
         foundWeld.removeModification(dateIndex);
         foundWeld.removeReason(dateIndex);
         foundWeld.removeShift(dateIndex);
         foundWeld.removePic1(dateIndex);
         foundWeld.removePic2(dateIndex);
+        foundWeld.decrementRetaught();
         
         if (notSavingTrash() == true){
             try {

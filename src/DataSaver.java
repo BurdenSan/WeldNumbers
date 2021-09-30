@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 
 public class DataSaver {
-    static String mydir = "C:\\Users\\aburd\\Desktop\\Welds";
+    static String mydir = System.getProperty("user.home") + "\\welds";
     public static File weldsFile;
     
     public static void fileMaker (String robotNum, String cellName){
